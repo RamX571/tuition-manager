@@ -1,6 +1,22 @@
-const CACHE_NAME = 'tuition-manager-v3';
+const CACHE_NAME = 'tuition-manager-v5';
+const PRECACHE_ASSETS = [
+  '/tuition-manager/',
+  '/tuition-manager/index.html',
+  '/tuition-manager/manifest.json',
+  '/tuition-manager/manifest.webmanifest',
+  '/tuition-manager/icon-192.png',
+  '/tuition-manager/icon-512.png',
+  '/tuition-manager/icon-maskable.png'
+];
 
 self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(PRECACHE_ASSETS).catch((err) => {
+        console.warn('Pre-cache partial failure:', err);
+      });
+    })
+  );
   self.skipWaiting();
 });
 
@@ -20,7 +36,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  
+
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
@@ -36,7 +52,7 @@ self.addEventListener('fetch', (event) => {
         return caches.match(event.request).then((cached) => {
           if (cached) return cached;
           if (event.request.mode === 'navigate') {
-            return caches.match('./index.html') || caches.match('./');
+            return caches.match('/tuition-manager/index.html') || caches.match('/tuition-manager/');
           }
         });
       })

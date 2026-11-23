@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import './index.css';
 
-// Purge any stale cache and update Service Worker
+// Register Service Worker with explicit scope
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').then((reg) => {
-      reg.update();
-    }).catch(err => {
-      console.log('SW registration skipped:', err);
-    });
+    navigator.serviceWorker
+      .register('/tuition-manager/sw.js', { scope: '/tuition-manager/' })
+      .then((reg) => {
+        reg.update();
+      })
+      .catch((err) => {
+        console.warn('SW registration skipped:', err);
+      });
   });
 }
 
@@ -18,7 +21,7 @@ if ('serviceWorker' in navigator) {
 if ('caches' in window) {
   caches.keys().then((names) => {
     for (const name of names) {
-      if (name === 'tuition-manager-v1') {
+      if (name.startsWith('tuition-manager-') && name !== 'tuition-manager-v5') {
         caches.delete(name);
       }
     }
