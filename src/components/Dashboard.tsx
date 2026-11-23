@@ -199,11 +199,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       <span className="font-bold text-slate-900 hover:text-indigo-600 transition-colors">
                         {summary.student.name}
                       </span>
-                      {summary.student.standard && (
-                        <span className="text-2xs font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                          {summary.student.standard}
-                        </span>
-                      )}
                     </div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 mt-1">
                       <span className="flex items-center gap-1 text-rose-600 font-semibold">
@@ -267,11 +262,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       <span className="font-bold text-slate-900 hover:text-indigo-600">
                         {summary.student.name}
                       </span>
-                      {summary.student.standard && (
-                        <span className="text-2xs font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                          {summary.student.standard}
-                        </span>
-                      )}
                     </div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 mt-1">
                       <span className="text-amber-700 font-semibold">

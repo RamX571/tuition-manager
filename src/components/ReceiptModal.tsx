@@ -90,18 +90,6 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
               <span className="text-slate-500">Student Name:</span>
               <span className="font-bold text-slate-900">{student.name}</span>
             </div>
-            {student.parentName && (
-              <div className="flex justify-between">
-                <span className="text-slate-500">Parent / Guardian:</span>
-                <span className="font-medium text-slate-700">{student.parentName}</span>
-              </div>
-            )}
-            {student.standard && (
-              <div className="flex justify-between">
-                <span className="text-slate-500">Class / Subject:</span>
-                <span className="font-semibold text-slate-800">{student.standard}</span>
-              </div>
-            )}
             {payment.cyclePeriod && (
               <div className="flex justify-between">
                 <span className="text-slate-500">Period Covered:</span>

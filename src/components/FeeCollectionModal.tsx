@@ -121,8 +121,7 @@ export const FeeCollectionModal: React.FC<FeeCollectionModalProps> = ({
             >
               {allSummaries.map(s => (
                 <option key={s.student.id} value={s.student.id}>
-                  {s.student.name} ({s.student.standard || 'No Class'}) -{' '}
-                  {formatCurrency(s.student.monthlyFee)}/mo [
+                  {s.student.name} - {formatCurrency(s.student.monthlyFee)}/mo [
                   {s.status === 'OVERDUE' ? '⚠️ Overdue' : s.status === 'DUE_SOON' ? '⏰ Due Soon' : '✅ Paid'}
                   ]
                 </option>

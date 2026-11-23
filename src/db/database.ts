@@ -8,7 +8,7 @@ export class TuitionManagerDB extends Dexie {
   constructor() {
     super('TuitionManagerDB');
     this.version(2).stores({
-      students: '++id, name, phone, admissionDate, standard, batch, active, createdAt',
+      students: '++id, name, admissionDate, active, createdAt',
       payments: '++id, studentId, paymentDate, receiptNumber, createdAt'
     });
   }
@@ -29,10 +29,9 @@ export async function clearAllData(): Promise<void> {
  */
 export async function purgeOldDemoData(): Promise<void> {
   try {
-    const demoPhones = ['9876543210', '9812345678', '9988776655'];
     const demoNames = ['Aarav Sharma', 'Priya Verma', 'Rohan Gupta'];
     const demoStudents = await db.students
-      .filter(s => demoPhones.includes(s.phone) || demoNames.includes(s.name))
+      .filter(s => demoNames.includes(s.name))
       .toArray();
 
     for (const s of demoStudents) {

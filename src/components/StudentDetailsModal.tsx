@@ -1,11 +1,7 @@
 import React from 'react';
 import {
   X,
-  User,
-  Phone,
   Calendar,
-  IndianRupee,
-  BookOpen,
   Clock,
   CheckCircle2,
   AlertCircle,
@@ -82,7 +78,7 @@ export const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
                 {statusBadge}
               </div>
               <p className="text-xs text-slate-500 font-medium">
-                {student.standard || 'Student Profile'} • Admitted on {formatFriendlyDate(student.admissionDate)}
+                Admitted on {formatFriendlyDate(student.admissionDate)}
               </p>
             </div>
           </div>
@@ -142,38 +138,12 @@ export const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
             </div>
           </div>
 
-          {/* Student Profile Info Details */}
+          {/* Student Info Details */}
           <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/70 space-y-2 text-xs">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <div className="flex items-center gap-2 text-slate-600">
-                <Phone className="w-3.5 h-3.5 text-slate-400" />
-                <span className="font-semibold text-slate-700">Phone:</span>
-                {student.phone ? (
-                  <a href={`tel:${student.phone}`} className="text-indigo-600 hover:underline">
-                    {student.phone}
-                  </a>
-                ) : (
-                  <span className="text-slate-400">Not provided</span>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2 text-slate-600">
-                <User className="w-3.5 h-3.5 text-slate-400" />
-                <span className="font-semibold text-slate-700">Parent:</span>
-                <span>{student.parentName || 'Not provided'}</span>
-              </div>
-
-              <div className="flex items-center gap-2 text-slate-600">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
-                <span className="font-semibold text-slate-700">Batch:</span>
-                <span>{student.batch || 'Regular'}</span>
-              </div>
-
-              <div className="flex items-center gap-2 text-slate-600">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                <span className="font-semibold text-slate-700">Next Cycle:</span>
-                <span className="font-medium text-slate-800">{nextCycleLabel}</span>
-              </div>
+            <div className="flex items-center gap-2 text-slate-600">
+              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+              <span className="font-semibold text-slate-700">Next Cycle Period:</span>
+              <span className="font-medium text-slate-800">{nextCycleLabel}</span>
             </div>
 
             {student.notes && (

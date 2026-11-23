@@ -5,12 +5,8 @@ export type PaymentMode = 'cash' | 'upi' | 'bank_transfer' | 'other';
 export interface Student {
   id?: number;
   name: string;
-  phone: string;
-  parentName?: string;
   admissionDate: string; // YYYY-MM-DD
   monthlyFee: number;
-  standard?: string; // e.g. "Class 10", "12th Science"
-  batch?: string; // e.g. "Morning (7:00 AM)", "Evening"
   notes?: string;
   active: boolean;
   createdAt: string;
