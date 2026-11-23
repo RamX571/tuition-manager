@@ -1,7 +1,12 @@
 import React from 'react';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Download } from 'lucide-react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  canInstall?: boolean;
+  onInstall?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ canInstall, onInstall }) => {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,6 +20,17 @@ export const Header: React.FC = () => {
               Tuition Manager
             </h1>
           </div>
+
+          {/* Install App Button if browser prompt is ready */}
+          {canInstall && (
+            <button
+              onClick={onInstall}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 shadow-2xs animate-pulse transition-all"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Install App</span>
+            </button>
+          )}
         </div>
       </div>
     </header>

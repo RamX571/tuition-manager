@@ -37,6 +37,25 @@ export const App: React.FC = () => {
 
   // Toast state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const choice = await installPrompt.userChoice;
+    if (choice?.outcome === 'accepted') {
+      setInstallPrompt(null);
+    }
+  };
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -164,7 +183,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Top Header */}
-      <Header />
+      <Header canInstall={!!installPrompt} onInstall={handleInstallApp} />
 
       {/* Main Content Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 pb-24 sm:pb-28">

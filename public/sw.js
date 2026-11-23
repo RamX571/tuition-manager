@@ -1,11 +1,9 @@
-const CACHE_NAME = 'tuition-manager-v2';
+const CACHE_NAME = 'tuition-manager-v3';
 
-// Immediately take over
 self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Purge any old cache versions (e.g. tuition-manager-v1)
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -20,13 +18,13 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Network-first strategy so updates are immediately visible
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const resClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, resClone);
@@ -34,6 +32,13 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => {
+        return caches.match(event.request).then((cached) => {
+          if (cached) return cached;
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html') || caches.match('./');
+          }
+        });
+      })
   );
 });
