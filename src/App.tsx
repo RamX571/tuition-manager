@@ -9,7 +9,7 @@ import { StudentDetailsModal } from './components/StudentDetailsModal';
 import { ReceiptModal } from './components/ReceiptModal';
 import { BackupModal } from './components/BackupModal';
 
-import { db, clearAllData } from './db/database';
+import { db, clearAllData, purgeOldDemoData } from './db/database';
 import type { Student, FeePayment, StudentFeeSummary } from './types';
 import { calculateStudentFeeSummary, formatCurrency, formatFriendlyDate } from './utils/feeCalculations';
 import { Search, CreditCard, Receipt, Filter } from 'lucide-react';
@@ -46,6 +46,7 @@ export const App: React.FC = () => {
   // Load data from IndexedDB
   const refreshData = useCallback(async () => {
     try {
+      await purgeOldDemoData();
       const s = await db.students.toArray();
       const p = await db.payments.toArray();
       setStudents(s);
